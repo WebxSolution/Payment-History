@@ -14,19 +14,16 @@
     </files>
     <languages>
         <language tag="en-GB">language/en-GB/en-GB.plg_task_paymenthistoryclean.ini</language>
+				<language tag="en-GB">language/en-GB/en-GB.plg_task_paymenthistoryclean.sys.ini</language>
     </languages>
-    <config>
-        <fields name="params">
-            <fieldset name="basic">
-                <field
-                    name="retention_period"
-                    type="integer"
-                    label="Retention Period"
-                    description="Enter the number of months to retain records in the #__rsform_paymentHistory table."
-                    default="3"
-                    min="1"
-                />
-            </fieldset>
-        </fields>
-    </config>
+		<install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
 </extension>
