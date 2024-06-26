@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fields name="params">
+        <fieldset name="basic">
+            <field
+                name="retention_period"
+                type="text"
+                label="PLG_TASK_PAYMENTHISTORYCLEAN_RETENTION_PERIOD_LABEL"
+                description="PLG_TASK_PAYMENTHISTORYCLEAN_RETENTION_PERIOD_DESC"
+                default="3"
+            />
+						<field
+							name="retention_period_type"
+							type="list"
+							label="Cut-off time Unit"
+							default="year"
+							>
+							<option value="minute">Minute(s)</option>
+							<option value="hour">Hour(s)</option>
+							<option value="day">Day(s)</option>
+							<option value="week">Week(s)</option>
+							<option value="month">Month(s)</option>
+							<option value="year">Year(s)</option>
+						</field>
+			
+						<field
+							name="retention_period_type_amount"
+							type="text"
+											label="Cut-off time Amount"
+							default="3"
+							filter="integer"
+							description="Delete items that have been created before cut-off"
+						/>
+        </fieldset>
+    </fields>
+</form>

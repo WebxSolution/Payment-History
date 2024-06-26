@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.9" type="plugin" group="task">
+    <name>PLG_TASK_PAYMENTHISTORYCLEAN</name>
+    <author>Your Name</author>
+    <creationDate>June 2024</creationDate>
+    <version>1.0</version>
+    <description>PLG_TASK_PAYMENTHISTORYCLEAN_EXECUTE_DESC</description>
+    <files>
+        <filename plugin="paymenthistoryclean">paymenthistoryclean.php</filename>
+        <folder>services</folder>
+				<folder>src</folder>
+        <folder>forms</folder>
+				
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_task_paymenthistoryclean.ini</language>
+    </languages>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="retention_period"
+                    type="integer"
+                    label="Retention Period"
+                    description="Enter the number of months to retain records in the #__rsform_paymentHistory table."
+                    default="3"
+                    min="1"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
