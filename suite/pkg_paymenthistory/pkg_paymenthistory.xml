@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" version="3.0" method="upgrade">
+	<name>Package Payment History</name>
+	<author>Webx Solution</author>
+	<packagename>hostbill</packagename>
+	<version>1.0.0</version>
+	<description>Package comprised of Hostbill component and user plugin for Hostbill autologin.</description>
+	<files folder="packages">
+		<file type="plugin" id="rsfppaymenthistory" group="system">system/plg_rsfppaymenthistory.zip</file>
+		<file type="plugin" id="paymenthistoryclean" group="task">task/plg_paymenthistoryclean.zip</file>
+	</files>
+	<scriptfile>install.php</scriptfile>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.pkg_paymenthistory.sys.ini</language>
+	</languages>
+</extension>
