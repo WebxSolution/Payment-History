@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
     <fields name="params">
-        <fieldset name="basic">
-            <field
-                name="retention_period"
-                type="text"
-                label="PLG_TASK_PAYMENTHISTORYCLEAN_RETENTION_PERIOD_LABEL"
-                description="PLG_TASK_PAYMENTHISTORYCLEAN_RETENTION_PERIOD_DESC"
-                default="3"
-            />
+        <fieldset name="task_params">
 						<field
 							name="retention_period_type"
 							type="list"

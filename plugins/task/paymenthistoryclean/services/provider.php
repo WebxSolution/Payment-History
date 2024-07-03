@@ -12,6 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Database\DatabaseInterface;
+use Joomla\Event\DispatcherInterface;
 use Joomla\Plugin\Task\Paymenthistoryclean\Extension\Paymenthistoryclean;
 
 return new class () implements ServiceProviderInterface {
@@ -30,7 +31,8 @@ return new class () implements ServiceProviderInterface {
             PluginInterface::class,
             function (Container $container) {
                 $plugin = new Paymenthistoryclean(
-                    (array) PluginHelper::getPlugin('task', 'paymenthistoryclean')
+									$container->get(DispatcherInterface::class),
+                  (array) PluginHelper::getPlugin('task', 'paymenthistoryclean')
                 );
                 $plugin->setApplication(Factory::getApplication());
 								$plugin->setDatabase($container->get(DatabaseInterface::class));

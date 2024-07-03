@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS `#__rsform_paymentHistory`
 	`checkstorun` TEXT,
 	`payment_method` VARCHAR(50),
 	`amount` VARCHAR(50),
-	`created` DATE,
-	`modified` DATE ON UPDATE CURRENT_TIMESTAMP,
+	`created` DATETIME,
+	`modified` DATETIME ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8mb4;
 

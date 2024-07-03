@@ -9,7 +9,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class pkg_paymenthistoryScript
+class pkg_paymenthistoryInstallerScript
 {
 	
 	private $system_plugins = array

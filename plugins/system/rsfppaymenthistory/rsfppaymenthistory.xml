@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.9" type="plugin" group="system" method="upgrade">
-    <name>plg_system_rsfppaymenthistory</name>
+    <name>PLG_SYSTEM_RSFPPAYMENTHISTORY</name>
     <author>Your Name</author>
     <creationDate>June 2024</creationDate>
     <version>1.0</version>
     <description>RSFormPro payment history plugin.</description>
     <files>
+		    <folder>sql</folder>
         <filename plugin="rsfppaymenthistory">rsfppaymenthistory.php</filename>
     </files>
     <languages>
+				<language tag="en-GB">language/en-GB/en-GB.plg_system_rsfppaymenthistory.sys.ini</language>
         <language tag="en-GB">language/en-GB/en-GB.plg_system_rsfppaymenthistory.ini</language>
     </languages>
     <install>

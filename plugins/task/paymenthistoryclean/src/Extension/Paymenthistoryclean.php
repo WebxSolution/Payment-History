@@ -22,11 +22,10 @@ defined('_JEXEC') or die;
  *
  * @since 1.0.0
  */
-class PaymenthistorycleanTask extends CMSPlugin implements SubscriberInterface
+class Paymenthistoryclean extends CMSPlugin implements SubscriberInterface
 {
     use DatabaseAwareTrait;
     use TaskPluginTrait;
-    use UserFactoryAwareTrait;
 		
 		/**
      * @var array Task event mappings.
@@ -36,7 +35,7 @@ class PaymenthistorycleanTask extends CMSPlugin implements SubscriberInterface
         'plg_task_payment_history_clean_execute' => [
             'langConstPrefix' => 'PLG_TASK_PAYMENTHISTORYCLEAN_EXECUTE',
             'method'          => 'execute',
-            'form'            => 'executeform',
+            'form'            => 'executeForm',
         ],
     ];
 
@@ -78,7 +77,7 @@ class PaymenthistorycleanTask extends CMSPlugin implements SubscriberInterface
 						// Get the database object
 						$db     = $this->getDatabase();	
              // Get the retention period from the plugin parameters						
-						$dateType = $params->retention_period_type ?? 'month';
+						$dateType = $params->retention_period_type ?? 'year';
 						$dateAmount = (int) $params->retention_period_type_amount ?? 3;
             // Calculate date based on retention period
             $date = new \DateTime();

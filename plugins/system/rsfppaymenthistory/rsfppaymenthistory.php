@@ -96,5 +96,62 @@ class PlgSystemRsfppaymenthistory extends CMSPlugin
             $db->setQuery($query);
             $db->execute();
         }
-    }    
+    } 
+
+    public function onExtensionAfterInstall($installer, $eid)
+    {
+        $this->checkAndExecuteSqlFile($eid, 'install.mysql.utf8mb4.sql');
+    }
+
+    public function onExtensionAfterUninstall($installer, $eid)
+    {
+        $this->checkAndExecuteSqlFile($eid, 'uninstall.mysql.utf8mb4.sql');
+    }
+		
+		private function checkAndExecuteSqlFile($eid, $filename)
+    {
+        $db = Factory::getDbo();
+
+        // Query to get the extension details
+        $query = $db->getQuery(true)
+            ->select($db->quoteName(['type', 'element', 'folder']))
+            ->from($db->quoteName('#__extensions'))
+            ->where($db->quoteName('extension_id') . ' = ' . (int)$eid);
+
+        $db->setQuery($query);
+        $extension = $db->loadObject();
+
+        // Check if the extension is PlgSystemRsfppaymenthistory
+        if ($extension && $extension->type === 'plugin' && $extension->element === 'rsfppaymenthistory' && $extension->folder === 'system') {
+            $this->executeSqlFile($filename);
+        }
+    }
+
+    private function executeSqlFile($filename)
+    {
+        $db = Factory::getDbo();
+        $filePath = __DIR__ . '/sql/mysql/' . $filename; // Adjust path as necessary
+				
+				
+
+        if (file_exists($filePath)) {
+            $sql = file_get_contents($filePath);
+
+            try {
+                $db->setQuery($sql);
+                $db->execute();
+            } catch (Exception $e) {
+                // Handle error
+                Factory::getApplication()->enqueueMessage('Error executing SQL file: ' . $filename, 'error');
+                return false;
+            }
+        } else {
+            // File not found
+            Factory::getApplication()->enqueueMessage('SQL file not found: ' . $filePath, 'error');
+            return false;
+        }
+
+        return true;
+    }
+		
 }
