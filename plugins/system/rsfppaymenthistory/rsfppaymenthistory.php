@@ -17,7 +17,8 @@ class PlgSystemRsfppaymenthistory extends CMSPlugin
 
     public function onRsformAfterConfirmPayment($submissionId)
     {
-        // Get database object
+   
+				// Get database object
         $db = Factory::getDbo();
 
         // Query to fetch submission details including UserId
@@ -57,7 +58,7 @@ class PlgSystemRsfppaymenthistory extends CMSPlugin
                 case 'checkstorun':
                     $checkstorun = $row['FieldValue'];
                     break;
-                case 'rsfp_total':
+                case 'rsfp_Total':
                     $amount = $row['FieldValue'];
                     break;
                 case 'choose_payment':
@@ -65,17 +66,21 @@ class PlgSystemRsfppaymenthistory extends CMSPlugin
                     break;
             }
         }
+				
+				
 
         // Concatenate names to form customer_name
         $customerName = trim($forename. ($middle ? ' '.$middle: '').' '.$surname);
 
         // Fetch UserId separately
-        $userId = $results[0]['UserId']; // Since UserId is fetched directly from #__rsform_submissions
-
+        $userId = $results[0]['UserId']; // Since UserId is fetched directly from #__rsform_submissions##
+				
         // Check if all required data is available
         if ($userId && $customerName && $checkstorun && $paymentMethod && $amount) {
-            // Prepare the insert query
-            $columns = ['id', 'UserId', 'customer_name', 'checkstorun', 'payment_method', 'amount', 'created', 'modified'];
+            
+						$amount = $this->calcTax($amount, RSFormProHelper::getConfig('payment.hostbill.tax.value'), RSFormProHelper::getConfig('payment.hostbill.tax.type'));
+						// Prepare the insert query
+            $columns = ['SubmissionId', 'UserId', 'customer_name', 'checkstorun', 'payment_method', 'amount', 'created', 'modified'];
             $values = [
                 $db->quote($submissionId),
                 $db->quote($userId),
@@ -97,6 +102,24 @@ class PlgSystemRsfppaymenthistory extends CMSPlugin
             $db->execute();
         }
     } 
+		
+		private function calcTax($price, $amount, $type)
+		{
+			$price = (float) $price;
+			$amount = (float) $amount;
+			switch ($type)
+			{
+				case false:
+					$price = $price + (($price * $amount) / 100);
+					break;
+
+				case true:
+					$price = $price + $amount;
+					break;
+			}
+
+			return $price;
+		}		
 
     public function onExtensionAfterInstall($installer, $eid)
     {
