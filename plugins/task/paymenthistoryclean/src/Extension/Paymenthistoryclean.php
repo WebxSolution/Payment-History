@@ -76,12 +76,15 @@ class Paymenthistoryclean extends CMSPlugin implements SubscriberInterface
           
 						// Get the database object
 						$db     = $this->getDatabase();	
-             // Get the retention period from the plugin parameters						
+            // Get the retention period from the plugin parameters		
+            $params    = $event->getArgument('params');						 
 						$dateType = $params->retention_period_type ?? 'year';
 						$dateAmount = (int) $params->retention_period_type_amount ?? 3;
             // Calculate date based on retention period
+						date_default_timezone_set('Europe/London');
             $date = new \DateTime();
-            $date->modify('-' . $dateAmount . ' '.dateType);
+						
+            $date->modify('-' . $dateAmount . ' '.$dateType);
             $deleteDate = $db->quote($date->format('Y-m-d H:i:s'));
 
             // Prepare the delete query
